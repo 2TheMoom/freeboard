@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <g transform="translate(8,2) scale(1.55)">
+    <rect x="6" y="32" width="52" height="18" fill="#1E4B47" opacity="0.22"/>
+    <path d="M9,24 Q32,12 55,24 L55,40 Q32,50 9,40 Z" stroke="#14211C" stroke-width="2.4" fill="none" stroke-linejoin="round"/>
+    <line x1="4" y1="32" x2="60" y2="32" stroke="#96652A" stroke-width="2.8" stroke-linecap="round"/>
+  </g>
+  <text x="125" y="68" font-family="Palatino Linotype, Georgia, ui-serif, serif" font-size="56" fill="#14211C">Freeboard</text>
+</svg>

@@ -1,0 +1,49 @@
+:root {
+  --bg: #E8ECE6;
+  --surface: #DBE1D8;
+  --surface-2: #D2D9CE;
+  --text: #14211C;
+  --text-dim: #4B5850;
+  --accent: #96652A;
+  --water: #1E4B47;
+  --line: rgba(20, 33, 28, 0.16);
+
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, ui-serif, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E1613;
+    --surface: #172420;
+    --surface-2: #1D2C27;
+    --text: #ECE9DD;
+    --text-dim: #97A39B;
+    --accent: #D6A354;
+    --water: #6FC7BE;
+    --line: rgba(236, 233, 221, 0.14);
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0E1613;
+  --surface: #172420;
+  --surface-2: #1D2C27;
+  --text: #ECE9DD;
+  --text-dim: #97A39B;
+  --accent: #D6A354;
+  --water: #6FC7BE;
+  --line: rgba(236, 233, 221, 0.14);
+}
+
+:root[data-theme="light"] {
+  --bg: #E8ECE6;
+  --surface: #DBE1D8;
+  --surface-2: #D2D9CE;
+  --text: #14211C;
+  --text-dim: #4B5850;
+  --accent: #96652A;
+  --water: #1E4B47;
+  --line: rgba(20, 33, 28, 0.16);
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    .h{fill:#14211C} .w{fill:#96652A}
+    @media (prefers-color-scheme: dark){ .h{fill:#ECE9DD} .w{fill:#D6A354} }
+  </style>
+  <path class="h" d="M9,24 Q32,12 55,24 L55,40 Q32,50 9,40 Z"/>
+  <rect class="w" x="2" y="29" width="60" height="6.5"/>
+</svg>
