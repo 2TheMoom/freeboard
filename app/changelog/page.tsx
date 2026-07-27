@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SiteHeader } from "../../components/SiteHeader";
+import { SiteFooter } from "../../components/SiteFooter";
 import { changelog } from "../../data/changelog";
 import { getEntity } from "../../data/entities";
 import { infraPartners } from "../../data/infra-partners";
@@ -17,6 +19,8 @@ export default function ChangelogPage() {
   const sorted = [...changelog].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
+    <>
+    <SiteHeader />
     <div className="container" style={{ padding: "40px clamp(18px, 4vw, 32px) 64px", maxWidth: 720 }}>
       <p className="eyebrow" style={{ marginBottom: 10 }}>Changelog</p>
       <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4vw, 38px)", marginBottom: 18 }}>
@@ -43,5 +47,7 @@ export default function ChangelogPage() {
         ))}
       </div>
     </div>
+    <SiteFooter />
+    </>
   );
 }

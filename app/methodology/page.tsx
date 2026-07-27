@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SiteHeader } from "../../components/SiteHeader";
+import { SiteFooter } from "../../components/SiteFooter";
 import { PILLAR_LABELS, PILLAR_WEIGHTS } from "../../lib/scoring";
 import type { PillarKey } from "../../lib/types";
 
@@ -18,6 +20,8 @@ const PILLAR_COPY: Record<PillarKey, string> = {
 
 export default function MethodologyPage() {
   return (
+    <>
+    <SiteHeader />
     <div className="container" style={{ padding: "40px clamp(18px, 4vw, 32px) 64px", maxWidth: 720 }}>
       <p className="eyebrow" style={{ marginBottom: 10 }}>Methodology</p>
       <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(28px, 4vw, 38px)", marginBottom: 18 }}>
@@ -69,5 +73,7 @@ export default function MethodologyPage() {
         changelog, not made silently.
       </p>
     </div>
+    <SiteFooter />
+    </>
   );
 }

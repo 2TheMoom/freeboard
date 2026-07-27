@@ -2,12 +2,21 @@ import Link from "next/link";
 import { Mark } from "./Mark";
 
 const NAV = [
-  { href: "/", label: "Registry" },
+  { href: "/?view=registry", label: "Registry" },
   { href: "/methodology", label: "Methodology" },
   { href: "/changelog", label: "Changelog" },
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ onLogoClick }: { onLogoClick?: () => void }) {
+  const logo = (
+    <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <Mark size={28} />
+      <span style={{ fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: "-0.01em" }}>
+        Freeboard
+      </span>
+    </span>
+  );
+
   return (
     <header
       style={{
@@ -20,18 +29,25 @@ export function SiteHeader() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 16,
+          flexWrap: "wrap",
+          rowGap: 10,
+          columnGap: 16,
           padding: "18px clamp(18px, 4vw, 32px)",
         }}
       >
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Mark size={28} />
-          <span style={{ fontFamily: "var(--font-display)", fontSize: 20, letterSpacing: "-0.01em" }}>
-            Freeboard
-          </span>
-        </Link>
-        <nav style={{ display: "flex", gap: 22 }}>
-          {NAV.map((item) => (
+        {onLogoClick ? (
+          <button
+            type="button"
+            onClick={onLogoClick}
+            style={{ background: "none", border: 0, padding: 0, cursor: "pointer", color: "inherit" }}
+          >
+            {logo}
+          </button>
+        ) : (
+          <Link href="/">{logo}</Link>
+        )}
+        <nav style={{ display: "flex", gap: "10px clamp(12px, 4vw, 22px)", flexWrap: "wrap" }}>
+          {(onLogoClick ? NAV.filter((item) => item.label !== "Registry") : NAV).map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -41,6 +57,7 @@ export function SiteHeader() {
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
                 color: "var(--text-dim)",
+                whiteSpace: "nowrap",
               }}
             >
               {item.label}

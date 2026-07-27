@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { SiteHeader } from "../components/SiteHeader";
-import { SiteFooter } from "../components/SiteFooter";
 
 const SITE_URL = "https://freeboard-six.vercel.app";
 const DESCRIPTION = "Security scores for bridges & protocols on Arc.";
@@ -48,11 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="stylesheet" href="/brand/tokens/tokens.css" />
       </head>
-      <body>
-        <SiteHeader />
-        <main style={{ flex: 1, width: "100%" }}>{children}</main>
-        <SiteFooter />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
