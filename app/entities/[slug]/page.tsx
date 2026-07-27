@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { SiteHeader } from "../../../components/SiteHeader";
+import { SiteFooter } from "../../../components/SiteFooter";
 import { entities, getEntity } from "../../../data/entities";
 import { changelog } from "../../../data/changelog";
 import { entityComposite, PILLAR_LABELS, PILLAR_WEIGHTS } from "../../../lib/scoring";
@@ -36,8 +38,10 @@ export default async function EntityPage({ params }: { params: Promise<{ slug: s
   const entries = changelog.filter((entry) => entry.entitySlug === entity.slug);
 
   return (
+    <>
+    <SiteHeader />
     <div className="container" style={{ padding: "40px clamp(18px, 4vw, 32px) 64px" }}>
-      <Link href="/" className="section-label" style={{ display: "inline-block", marginBottom: 24 }}>
+      <Link href="/?view=registry" className="section-label" style={{ display: "inline-block", marginBottom: 24 }}>
         ← Registry
       </Link>
 
@@ -119,5 +123,7 @@ export default async function EntityPage({ params }: { params: Promise<{ slug: s
         </>
       )}
     </div>
+    <SiteFooter />
+    </>
   );
 }
