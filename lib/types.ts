@@ -16,18 +16,71 @@ export interface EvidenceLink {
   type: EvidenceType;
 }
 
-export interface PillarScore {
-  /** 0-10, or null when there isn't enough public evidence to rate this pillar yet. */
-  score: number | null;
+export interface AuditFacts {
+  count: number;
+  mostRecentDate: string; // ISO date
+  hasTopTierFirm: boolean;
+}
+
+export interface IncidentEvent {
+  date: string; // ISO date
+  usdLost: number;
+  /** TVL at the moment of the incident, if it could be confirmed against a real source (e.g. DefiLlama's historical chart). Null, not guessed. */
+  tvlAtTimeUsd: number | null;
+  /** Did end users lose funds, or did the protocol/its backers absorb the loss? */
+  usersAffected: boolean;
+  /** Was the root cause fixed, not just the immediate incident contained? */
+  remediated: boolean;
+}
+
+export interface IncidentFacts {
+  /** Empty array means a confirmed clean record, not "unreviewed" - that's what `null` on the pillar itself means. */
+  events: IncidentEvent[];
+}
+
+export interface BountyFacts {
+  maxPayoutUsd: number;
+  /** A real historical payout, not just an advertised ceiling nobody has collected. */
+  hasConfirmedPayout: boolean;
+}
+
+export interface TransparencyFacts {
+  signerCount: number | null;
+  thresholdRatio: number | null; // e.g. 13-of-19 -> 0.684
+  timelockHours: number | null;
+  /** Count of specific, cited negative findings (e.g. "no timelock on default library upgrade"). */
+  documentedConcerns: number;
+}
+
+export interface AuditPillar {
+  facts: AuditFacts | null; // null = Rating pending
+  summary: string;
+  evidence: EvidenceLink[];
+}
+
+export interface IncidentPillar {
+  facts: IncidentFacts | null;
+  summary: string;
+  evidence: EvidenceLink[];
+}
+
+export interface BountyPillar {
+  facts: BountyFacts | null;
+  summary: string;
+  evidence: EvidenceLink[];
+}
+
+export interface TransparencyPillar {
+  facts: TransparencyFacts | null;
   summary: string;
   evidence: EvidenceLink[];
 }
 
 export interface EntityPillars {
-  audit: PillarScore;
-  incident: PillarScore;
-  bounty: PillarScore;
-  transparency: PillarScore;
+  audit: AuditPillar;
+  incident: IncidentPillar;
+  bounty: BountyPillar;
+  transparency: TransparencyPillar;
 }
 
 export interface ScoredEntity {
@@ -43,14 +96,6 @@ export interface ScoredEntity {
   /** Manually-confirmed DefiLlama protocol slug, used only to de-duplicate
    * search results against this curated entity — never auto-matched. */
   defillamaSlug?: string;
-}
-
-export interface InfraPartner {
-  slug: string;
-  name: string;
-  website: string;
-  description: string;
-  role: string;
 }
 
 export type PillarKey = keyof EntityPillars;

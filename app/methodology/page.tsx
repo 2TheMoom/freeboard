@@ -13,9 +13,16 @@ const PILLAR_ORDER: PillarKey[] = ["audit", "incident", "bounty", "transparency"
 
 const PILLAR_COPY: Record<PillarKey, string> = {
   audit: "How many independent audits an entity has had, how recent they are, and whether the auditors are reputable, established firms. A single audit from three years ago scores lower than an ongoing series of audits covering recent changes.",
-  incident: "What's actually gone wrong, and how badly. A large loss scores low; a loss where the architecture protected end users (rather than the protocol's own capital) scores better than one where users were the ones who lost funds. Old, fully-remediated incidents recover over time — unpatched ones don't.",
+  incident: "What's actually gone wrong, and how badly. A large loss scores low; a loss where the architecture protected end users (rather than the protocol's own capital) scores better than one where users were the ones who lost funds. Old, fully-remediated incidents recover over time — but a catastrophic-tier loss keeps a real, permanent floor on this pillar; it never fully decays away.",
   bounty: "Whether a live bug bounty program exists, what it actually pays for a critical finding (not just the advertised ceiling), and whether it has a track record of real payouts rather than just a page nobody reads.",
-  transparency: "Multisig thresholds, timelocks on upgrades, and whether admin/upgrade key holders are disclosed. A protocol that can be silently upgraded by a small group with no delay scores lower than one with public, time-delayed governance.",
+  transparency: "Multisig thresholds, timelocks on upgrades, and whether admin/upgrade key holders are disclosed. A protocol that can be silently upgraded by a small group with no delay scores lower than one with public, time-delayed governance — including a protocol whose safeguards come from a different, non-multisig source, since this pillar specifically measures decentralized-governance signals.",
+};
+
+const PILLAR_FORMULA: Record<PillarKey, string> = {
+  audit: "computed from confirmed audit count, how recently the latest one shipped, and whether any auditor is a well-known firm",
+  incident: "computed from each incident's dollar loss (both absolute and as a share of TVL at the time), how long ago it happened, whether users or the protocol absorbed it, and whether it was fixed — capped low for any single catastrophic-scale loss regardless of the other factors",
+  bounty: "computed from the maximum advertised payout tier, plus a bonus if a real payout is confirmed",
+  transparency: "computed from disclosed multisig signer count and threshold, timelock length, minus a point per specific documented governance concern",
 };
 
 export default function MethodologyPage() {
@@ -28,10 +35,13 @@ export default function MethodologyPage() {
         How scores get made
       </h1>
       <p style={{ color: "var(--text-dim)", fontSize: 15, lineHeight: 1.7, marginBottom: 32 }}>
-        Every score on Freeboard is built from four pillars. Each pillar is rated 0–10 based on public evidence —
-        audit reports, incident writeups, bounty program pages, on-chain governance data — and every non-zero-effort
-        score links directly to the sources behind it. If a pillar doesn&apos;t have solid public evidence, it&apos;s
-        marked &quot;Rating pending,&quot; not guessed at.
+        Every score on Freeboard comes from confirmed facts — audit counts, incident dollar amounts, bounty
+        ceilings, governance disclosures — run through a documented, mechanical formula, not a subjective call.
+        A human still confirms which real-world facts actually belong to which entity before they count for
+        anything: automated matching is a real risk here, not a hypothetical one — DefiLlama tracks Wormhole&apos;s
+        2022 hack under &quot;Portal,&quot; its old product name, so an unsupervised auto-match would have shown it
+        as incident-free. If a pillar&apos;s facts can&apos;t be confirmed, it&apos;s marked &quot;Rating pending,&quot;
+        not guessed at — that applies even to entities otherwise fully reviewed.
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 36 }}>
@@ -43,12 +53,15 @@ export default function MethodologyPage() {
                 {Math.round(PILLAR_WEIGHTS[key] * 100)}% weight
               </span>
             </div>
-            <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--text-dim)" }}>{PILLAR_COPY[key]}</p>
+            <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--text-dim)", marginBottom: 10 }}>{PILLAR_COPY[key]}</p>
+            <p style={{ fontSize: 12, lineHeight: 1.6, color: "var(--accent)", fontFamily: "var(--font-mono)" }}>
+              Formula: {PILLAR_FORMULA[key]}
+            </p>
           </div>
         ))}
       </div>
 
-      <p className="section-label" style={{ marginBottom: 10 }}>The formula</p>
+      <p className="section-label" style={{ marginBottom: 10 }}>The composite</p>
       <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--text-dim)", marginBottom: 32 }}>
         Track record — what&apos;s been audited and what&apos;s gone wrong — makes up 60% of the score (30% audit,
         30% incidents), weighted equally because both are direct evidence. Structural safeguards — bug bounty
