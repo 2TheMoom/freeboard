@@ -41,6 +41,7 @@ export default async function DiscoverPage({ params }: { params: Promise<{ slug:
   if (!protocol) notFound();
 
   const auditCount = Number(protocol.audits) || 0;
+  const hasNoLiveSignal = !protocol.tvl && (protocol.chains?.length ?? 0) === 0 && auditCount === 0;
 
   return (
     <>
@@ -61,6 +62,14 @@ export default async function DiscoverPage({ params }: { params: Promise<{ slug:
             Found via search, not on Freeboard&apos;s hand-researched list — see what&apos;s real below.
           </span>
         </div>
+
+        {hasNoLiveSignal && (
+          <p style={{ fontSize: 12.5, lineHeight: 1.6, color: "var(--text-dim)", marginBottom: 24, maxWidth: "62ch" }}>
+            DefiLlama has no TVL, chain, or audit data on file for this one — common for routers and aggregators
+            that don&apos;t hold funds themselves, but it can also just mean DefiLlama&apos;s listing is thin. Every
+            &quot;not reported&quot; below reflects that gap, not a problem with this page.
+          </p>
+        )}
 
         <p className="eyebrow" style={{ marginBottom: 6 }}>{protocol.category}</p>
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "clamp(30px, 5vw, 44px)", marginBottom: 10 }}>
