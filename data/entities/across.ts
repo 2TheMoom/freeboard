@@ -10,6 +10,7 @@ export const across: ScoredEntity = {
     "Intents-based bridge where independent relayers front capital to fill transfers instantly, secured after the fact by UMA's optimistic oracle rather than by locking user funds in a pooled contract.",
   chains: ["Ethereum", "Arbitrum", "Base", "Solana"],
   lastReviewed: "2026-07-27",
+  defillamaSlug: "across",
   pillars: {
     audit: {
       score: 8,
