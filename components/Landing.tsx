@@ -31,12 +31,12 @@ const PILLARS = [
 
 const FAQ = [
   {
-    q: "Why isn't there a rating for a protocol built on Arc itself?",
-    a: "Arc mainnet hasn't launched yet — it's still testnet as of this writing. Native Arc protocols get added to the registry the moment they deploy; until then, the bridges that will carry funds onto Arc are the more useful thing to rate.",
+    q: "How do you decide what gets reviewed next?",
+    a: "Manual research takes real time per entity — sourcing audits, confirming incident dollar amounts, checking bounty payout history. Coverage grows deliberately rather than all at once; search reaches anything, but only reviewed entities get a composite score.",
   },
   {
-    q: "Why do Elliptic and TRM Labs show up without a score?",
-    a: "They're compliance and analytics infrastructure, not bridges or protocols. Forcing a “bug bounty” score onto a KYT vendor would be a stretch bordering on misleading, so they're listed for context instead of scored.",
+    q: "Why do some entities show \"Rating pending\" on just one pillar?",
+    a: "Because a fact couldn't be confirmed, not because it doesn't exist. Across, for instance, is fully reviewed on audits, incidents, and bounty — but its specific multisig/timelock configuration wasn't publicly confirmable, so transparency stays pending and no composite score is shown, rather than guessing.",
   },
   {
     q: "How often do ratings change?",
@@ -120,8 +120,8 @@ export function Landing({ onOpenRegistry }: { onOpenRegistry: () => void }) {
           Know what you&apos;re trusting before you bridge.
         </h1>
         <p style={{ maxWidth: "56ch", color: "var(--text-dim)", fontSize: 16, lineHeight: 1.65, marginBottom: 28 }}>
-          Freeboard scores the bridges carrying funds onto Arc on audit history, incident record, bug bounty, and
-          transparency — every score backed by a cited public source, never a guess.
+          Freeboard scores bridges and protocols across crypto on audit history, incident record, bug bounty, and
+          transparency — every score computed from confirmed facts through a documented formula, never a guess.
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 40 }}>
           <button

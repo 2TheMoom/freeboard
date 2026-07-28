@@ -1,7 +1,6 @@
 import { entities } from "../data/entities";
-import { infraPartners } from "../data/infra-partners";
 import { changelog } from "../data/changelog";
-import { scoredEntitySchema, infraPartnerSchema, changelogEntrySchema } from "../lib/schema";
+import { scoredEntitySchema, changelogEntrySchema } from "../lib/schema";
 
 let hasErrors = false;
 
@@ -29,25 +28,12 @@ for (const entity of entities) {
   }
 }
 
-const seenInfraSlugs = new Set<string>();
-for (const partner of infraPartners) {
-  const result = infraPartnerSchema.safeParse(partner);
-  if (!result.success) {
-    report(`infra partner "${partner.slug ?? "(unknown)"}"`, result.error);
-  } else if (seenInfraSlugs.has(partner.slug) || seenEntitySlugs.has(partner.slug)) {
-    report(`infra partner "${partner.slug}"`, "duplicate slug");
-  } else {
-    seenInfraSlugs.add(partner.slug);
-  }
-}
-
-const validSlugs = new Set([...seenEntitySlugs, ...seenInfraSlugs]);
 changelog.forEach((entry, i) => {
   const result = changelogEntrySchema.safeParse(entry);
   if (!result.success) {
     report(`changelog[${i}]`, result.error);
-  } else if (!validSlugs.has(entry.entitySlug)) {
-    report(`changelog[${i}]`, `entitySlug "${entry.entitySlug}" does not match any known entity/partner`);
+  } else if (!seenEntitySlugs.has(entry.entitySlug)) {
+    report(`changelog[${i}]`, `entitySlug "${entry.entitySlug}" does not match any known entity`);
   }
 });
 
@@ -56,6 +42,6 @@ if (hasErrors) {
   process.exit(1);
 } else {
   console.log(
-    `✓ Data validation passed (${entities.length} entities, ${infraPartners.length} infra partners, ${changelog.length} changelog entries)`
+    `✓ Data validation passed (${entities.length} entities, ${changelog.length} changelog entries)`
   );
 }

@@ -5,8 +5,7 @@ import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
 import { SearchBox } from "./SearchBox";
 import { entities } from "../data/entities";
-import { infraPartners } from "../data/infra-partners";
-import { entityComposite, sortByComposite, PILLAR_LABELS } from "../lib/scoring";
+import { entityComposite, sortByComposite, pillarScore, PILLAR_LABELS } from "../lib/scoring";
 import type { PillarKey } from "../lib/types";
 
 const PILLAR_ORDER: PillarKey[] = ["audit", "incident", "bounty", "transparency"];
@@ -28,9 +27,9 @@ export function Registry({ onGoLanding }: { onGoLanding: () => void }) {
           </div>
         </div>
         <p style={{ maxWidth: "62ch", color: "var(--text-dim)", fontSize: 15, lineHeight: 1.6 }}>
-          Arc mainnet hasn&apos;t launched yet, so there&apos;s nothing native to score. What&apos;s real today are the
-          bridges that will carry funds onto Arc once it does — so that&apos;s where this registry starts. Native Arc
-          protocols get added the moment they deploy.
+          Every score below is computed from confirmed facts — audit counts, incident dollars, bounty ceilings,
+          governance disclosures — through a documented formula, not a gut call. Search reaches any bridge or
+          protocol; only what&apos;s below has been independently reviewed.
         </p>
 
         <div style={{ margin: "28px 0" }}>
@@ -44,7 +43,7 @@ export function Registry({ onGoLanding }: { onGoLanding: () => void }) {
 
         <RuleDivider />
 
-        <p className="section-label" style={{ marginBottom: 18 }}>Bridges into Arc</p>
+        <p className="section-label" style={{ marginBottom: 18 }}>Reviewed bridges &amp; protocols</p>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {ranked.map((entity) => {
             const composite = entityComposite(entity);
@@ -68,40 +67,12 @@ export function Registry({ onGoLanding }: { onGoLanding: () => void }) {
                   }}
                 >
                   {PILLAR_ORDER.map((key) => (
-                    <PillarChip key={key} label={PILLAR_LABELS[key]} score={entity.pillars[key].score} />
+                    <PillarChip key={key} label={PILLAR_LABELS[key]} score={pillarScore(entity.pillars, key)} />
                   ))}
                 </div>
               </Link>
             );
           })}
-        </div>
-
-        <RuleDivider />
-
-        <p className="section-label" style={{ marginBottom: 8 }}>Ecosystem infrastructure</p>
-        <p style={{ color: "var(--text-dim)", fontSize: 13, marginBottom: 18, maxWidth: "62ch" }}>
-          Compliance and analytics infrastructure confirmed on Arc&apos;s testnet. Not scored under the same rubric as
-          bridges — a KYT vendor doesn&apos;t have a &quot;bug bounty&quot; posture the way a bridge does — listed here
-          for context.
-        </p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
-          {infraPartners.map((partner) => (
-            <div key={partner.slug} className="card">
-              <h3 style={{ fontFamily: "var(--font-display)", fontSize: 18, marginBottom: 6 }}>{partner.name}</h3>
-              <p style={{ color: "var(--text-dim)", fontSize: 13, lineHeight: 1.5, marginBottom: 8 }}>
-                {partner.description}
-              </p>
-              <p style={{ fontSize: 12.5, lineHeight: 1.5 }}>{partner.role}</p>
-              <a
-                href={partner.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--accent)", display: "inline-block", marginTop: 10 }}
-              >
-                {partner.website.replace("https://", "")} →
-              </a>
-            </div>
-          ))}
         </div>
       </div>
       <SiteFooter />

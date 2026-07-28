@@ -4,7 +4,6 @@ import { SiteHeader } from "../../components/SiteHeader";
 import { SiteFooter } from "../../components/SiteFooter";
 import { changelog } from "../../data/changelog";
 import { getEntity } from "../../data/entities";
-import { infraPartners } from "../../data/infra-partners";
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 function entityName(slug: string): string {
-  return getEntity(slug)?.name ?? infraPartners.find((p) => p.slug === slug)?.name ?? slug;
+  return getEntity(slug)?.name ?? slug;
 }
 
 export default function ChangelogPage() {

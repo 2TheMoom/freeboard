@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const SITE_URL = "https://freeboard-six.vercel.app";
-const DESCRIPTION = "Security scores for bridges & protocols on Arc.";
+const DESCRIPTION = "Security scores for bridges & protocols across crypto.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -5,7 +5,7 @@ import { SiteHeader } from "../../../components/SiteHeader";
 import { SiteFooter } from "../../../components/SiteFooter";
 import { entities, getEntity } from "../../../data/entities";
 import { changelog } from "../../../data/changelog";
-import { entityComposite, PILLAR_LABELS, PILLAR_WEIGHTS } from "../../../lib/scoring";
+import { entityComposite, pillarScore, PILLAR_LABELS, PILLAR_WEIGHTS } from "../../../lib/scoring";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 import type { PillarKey } from "../../../lib/types";
 
@@ -70,6 +70,7 @@ export default async function EntityPage({ params }: { params: Promise<{ slug: s
       <div style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: 32 }}>
         {PILLAR_ORDER.map((key) => {
           const pillar = entity.pillars[key];
+          const score = pillarScore(entity.pillars, key);
           return (
             <div key={key} className="card">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8, gap: 12, flexWrap: "wrap" }}>
@@ -80,7 +81,7 @@ export default async function EntityPage({ params }: { params: Promise<{ slug: s
                   </span>
                 </h2>
                 <span style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--text)" }}>
-                  {pillar.score === null ? "—" : `${pillar.score.toFixed(1)}/10`}
+                  {score === null ? "—" : `${score.toFixed(1)}/10`}
                 </span>
               </div>
               <p style={{ fontSize: 13.5, lineHeight: 1.6, color: "var(--text-dim)", marginBottom: pillar.evidence.length ? 12 : 0 }}>
