@@ -3,6 +3,7 @@ import { Mark, RuleDivider } from "./Mark";
 import { ScoreBadge, PillarChip } from "./ScoreBadge";
 import { SiteHeader } from "./SiteHeader";
 import { SiteFooter } from "./SiteFooter";
+import { SearchBox } from "./SearchBox";
 import { entities } from "../data/entities";
 import { infraPartners } from "../data/infra-partners";
 import { entityComposite, sortByComposite, PILLAR_LABELS } from "../lib/scoring";
@@ -31,6 +32,15 @@ export function Registry({ onGoLanding }: { onGoLanding: () => void }) {
           bridges that will carry funds onto Arc once it does — so that&apos;s where this registry starts. Native Arc
           protocols get added the moment they deploy.
         </p>
+
+        <div style={{ margin: "28px 0" }}>
+          <p className="section-label" style={{ marginBottom: 10 }}>Search any bridge or protocol</p>
+          <SearchBox />
+          <p style={{ fontSize: 12, color: "var(--text-dim)", marginTop: 8, maxWidth: "58ch" }}>
+            Live-searches ~8,000 protocols via DefiLlama. Anything outside the reviewed list below shows real data —
+            TVL, chains, audit links — but no composite score until it&apos;s been independently reviewed.
+          </p>
+        </div>
 
         <RuleDivider />
 

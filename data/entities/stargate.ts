@@ -10,6 +10,7 @@ export const stargate: ScoredEntity = {
     "Liquidity-pool bridge built on LayerZero's messaging protocol, offering native-asset transfers (not wrapped tokens) across 20+ chains.",
   chains: ["Ethereum", "Arbitrum", "Optimism", "Arc (planned via LayerZero integration)"],
   lastReviewed: "2026-07-27",
+  defillamaSlug: "stargate-v2",
   pillars: {
     audit: {
       score: 7,

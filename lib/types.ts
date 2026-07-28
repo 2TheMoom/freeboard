@@ -40,6 +40,9 @@ export interface ScoredEntity {
   chains?: string[];
   pillars: EntityPillars;
   lastReviewed: string; // ISO date
+  /** Manually-confirmed DefiLlama protocol slug, used only to de-duplicate
+   * search results against this curated entity — never auto-matched. */
+  defillamaSlug?: string;
 }
 
 export interface InfraPartner {

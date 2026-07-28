@@ -10,6 +10,7 @@ export const wormhole: ScoredEntity = {
     "General message-passing bridge secured by a 19-node Guardian network, connecting 30+ chains including Solana, Ethereum, and most major L2s.",
   chains: ["Ethereum", "Solana", "Arc (via CCTP integration)"],
   lastReviewed: "2026-07-27",
+  defillamaSlug: "portal",
   pillars: {
     audit: {
       score: 8,

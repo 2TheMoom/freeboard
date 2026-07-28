@@ -10,6 +10,7 @@ export const cctp: ScoredEntity = {
     "Circle's native burn-and-mint transfer protocol for USDC: tokens are burned on the source chain and an equal amount of native USDC is minted on the destination chain once Circle's attestation service signs off — no wrapped assets, no locked liquidity pool to drain.",
   chains: ["Ethereum", "Solana", "Base", "Arc (Circle-native, day-one integration expected)"],
   lastReviewed: "2026-07-27",
+  defillamaSlug: "circle-cctp",
   pillars: {
     audit: {
       score: 8,
